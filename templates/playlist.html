@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-4 text-left text-base font-medium text-gray-500 uppercase tracking-wider">
+                    Cover
+                </th>
+                <th scope="col" class="px-6 py-4 text-left text-base font-medium text-gray-500 uppercase tracking-wider">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-4 text-left text-base font-medium text-gray-500 uppercase tracking-wider">
+                    Elo Rating
+                </th>
+            </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+            {% for song in songs %}
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-16 w-16">
+                            <img class="h-16 w-16" src="{{ song.cover_url }}" alt="{{ song.name }}">
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-lg text-gray-900">{{ song.name }}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-lg text-gray-500">{{ song.elo }}</div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rankify</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="{{ url_for('index') }}">
+                            <img class="h-24 w-24 transition-transform duration-200 hover:scale-105" src="{{ url_for('static', filename='Rankify-logo/vector/default-monochrome.svg') }}" alt="SpotiRank">
+                        </a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="/" class="text-gray-700 hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Compare</a>
+                            <a href="/playlist" class="text-gray-700 hover:bg-indigo-500 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Playlist</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <form action="{{ url_for('handle_playlist_link') }}" method="get" onsubmit="return true;">
+                        <input type="text" name="playlistLink" class="rounded-md p-2" placeholder="Playlist link">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% block content %}
+    <!-- This is where the content from the child template will go -->
+    {% endblock %}
+    <footer class="bg-indigo-600 text-center text-white p-4 mt-6">
+        <p>&copy; Rankify by duozokker</p>
+    </footer>
+</body>
+</html>

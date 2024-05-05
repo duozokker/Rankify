@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center mt-6">
+    <h2 class="text-2xl font-bold">Playlist Name: Udos Hood Classics</h2>
+    <p class="text-xl mt-2">Playlist Description: THIS IS A CERTIFIED HOOD CLASSIC ✅</p>
+    <p class="text-xl mt-2">Number of Tracks: 199</p>
+</div>
+<div class="flex justify-between items-center mt-10">
+    <div class="w-1/2 p-4">
+        <img class="mx-auto transition-transform duration-200 transform hover:scale-105" src="{{ album1 }}" alt="{{ aName }}" onclick="albumClick('{{ aIndex }}','{{ bIndex }}', 'a')">
+        <p class="text-center text-gray-700 text-xl mt-4">{{ aName }}</p>
+    </div>
+    <div class="bg-white p-2 rounded-full shadow-lg w-24 h-24 flex items-center justify-center">
+        <img src="{{ url_for('static', filename='noun-versus-6534666.svg') }}" alt="Versus" class="object-contain h-full w-full mt-3">
+    </div>
+    <div class="w-1/2 p-4">
+        <img class="mx-auto transition-transform duration-200 transform hover:scale-105" src="{{ album2 }}" alt="{{ bName }}" onclick="albumClick('{{ aIndex }}','{{ bIndex }}', 'b')">
+        <p class="text-center text-gray-700 text-xl mt-4">{{ bName }}</p>
+    </div>
+</div>
+<script>
+function albumClick(aIndex, bIndex, winner) {
+    fetch(`/album_click/${aIndex}/${bIndex}/${winner}`)
+        .then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+                console.error('Failed to click album', response);
+            }
+        });
+}
+</script>
+{% endblock %}

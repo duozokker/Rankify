@@ -1,0 +1,23 @@
+SpotyRank.py
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment files
+.env
+
+# Virtual environment
+venv/
+
+# Cache files
+.cache
+
+# Distutils
+dist/
+*.egg-info/
+
+# Workspace files
+*.code-workspace
