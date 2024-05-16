@@ -1,5 +1,7 @@
 # Rankify
 
+![Rankify Game Screenshot](preview.jpeg)
+
 Rankify is a fun game that allows you to compare two songs from a given Spotify playlist and choose which one you like more. It's similar to the "Higher Lower" game where one must guess which topic has more search results.
 
 ## Setup
