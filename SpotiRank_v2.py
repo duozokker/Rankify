@@ -51,58 +51,146 @@ def eloRating(Ra, Rb, d, K = 100):
  
 
 
-#Structure
 class Song:
-    def __init__(self, item, id, rank=1000):
+    def __init__(self, item: str, id: int, rank: int = 1000):
+        """
+        Initializes the Song object.
+        
+        :param item: The name of the song.
+        :type item: str
+        :param id: The unique identifier of the song.
+        :type id: int
+        :param rank: The rank of the song, defaults to 1000.
+        :type rank: int
+        """
         self.item = item
         self.rank = rank
         self.id = id
 
-    def getId(self):
+    def getId(self) -> int:
+        """
+        Returns the id of the Song.
+        
+        :return: The id of the song.
+        :rtype: int
+        """
         return self.id
     
-    def getRank(self):
+    def getRank(self) -> int:
+        """
+        Returns the rank of the Song.
+        
+        :return: The rank of the song.
+        :rtype: int
+        """
         return self.rank
     
-    def getItem(self):
+    def getItem(self) -> str:
+        """
+        Returns the item of the Song.
+        
+        :return: The name of the song.
+        :rtype: str
+        """
         return self.item
     
-    def setRank(self, newRank):
+    def setRank(self, newRank: int):
+        """
+        Sets a new rank for the Song.
+        
+        :param newRank: The new rank of the song.
+        :type newRank: int
+        """
         self.rank = newRank
     
     def __str__(self) -> str:
-        return self.item # + self.id
+        """
+        Returns the string representation of the Song.
+        
+        :return: The name of the song.
+        :rtype: str
+        """
+        return self.item
 
 class Playlist:
-    def __init__(self, playlistParam):
+    def __init__(self, playlistParam: list):
+        """
+        Initializes the Playlist object.
+        
+        :param playlistParam: The list of songs.
+        :type playlistParam: list
+        """
         self.playlist = playlistParam
     
-    def get(self):
+    def get(self) -> list:
+        """
+        Returns the playlist.
+        
+        :return: The list of songs.
+        :rtype: list
+        """
         return self.playlist
     
-    def set(self, set):
+    def set(self, set: list):
+        """
+        Sets a new playlist.
+        
+        :param set: The new list of songs.
+        :type set: list
+        """
         self.playlist = set
 
-    # get Item at index i
-    def getIndex(self, i):
+    def getIndex(self, i: int) -> Song:
+        """
+        Returns the Song at index i in the playlist.
+        
+        :param i: The index of the song.
+        :type i: int
+        :return: The song at the given index.
+        :rtype: Song
+        """
         return self.playlist[i]
     
-    # give Index, get Elo
-    def getElo(self, i):
+    def getElo(self, i: int) -> int:
+        """
+        Returns the rank (Elo) of the Song at index i in the playlist.
+        
+        :param i: The index of the song.
+        :type i: int
+        :return: The rank of the song at the given index.
+        :rtype: int
+        """
         return self.getIndex(i).getRank()
 
     def sort(self):
+        """
+        Sorts the playlist based on the rank of the Songs.
+        """
         playlist = self.playlist
-        self.playlist = sorted(playlist, key=lambda playlist: -playlist.rank) #, reverse=True)
+        self.playlist = sorted(playlist, key=lambda playlist: -playlist.rank)
     
-    # return 2 indices 
-    def randSample(self, n=2):
+    def randSample(self, n: int = 2) -> list:
+        """
+        Returns n random indices from the playlist.
+        
+        :param n: The number of random indices to return, defaults to 2.
+        :type n: int
+        :return: The list of random indices.
+        :rtype: list
+        """
         return sample(range(len(self.playlist)), n)
     
-    # a - player a index
-    # b - player b index
-    # d - winner as String
-    def game(self, a, b, d):
+    def game(self, a: int, b: int, d: str):
+        """
+        Plays a game between the Songs at index a and b. The winner is determined by the string d.
+        
+        :param a: The index of the first song.
+        :type a: int
+        :param b: The index of the second song.
+        :type b: int
+        :param d: The winner of the game.
+        :type d: str
+        """
         aElo = self.getIndex(a).getRank()
         bElo = self.getIndex(b).getRank()
 
@@ -112,10 +200,14 @@ class Playlist:
         self.getIndex(b).setRank(bElo)
 
         self.sort()
-
-        #return aElo, bElo
     
     def __str__(self) -> str:
+        """
+        Returns the string representation of the Playlist.
+        
+        :return: The string representation of the playlist.
+        :rtype: str
+        """
         rstring = ""
         for i in self.playlist:
             rstring += str(i) + f" - {i.getRank()}\n"
