@@ -37,14 +37,13 @@ def setupPlaylist (playlist_id = '57OPbzeNozOLLJ9xEUd5UD'):
 
     #new_tracklist = tracklist, tracklist_ids
     tracklist = list(zip(tracklist, tracklist_ids))
-    playlist = Playlist([Song(item, id) for item, id in tracklist])
+    playlistArray = Playlist([Song(item, id) for item, id in tracklist])
     #print(playlist)
 
-    return tracklist, playlist
+    return tracklist,playlistArray, playlist
 
-global tracklist
-global playlist
-tracklist, playlist = setupPlaylist()
+global tracklist, playlist, spplaylist
+tracklist, playlist, spplaylist = setupPlaylist()
 
 
 app = Flask(__name__)
@@ -79,7 +78,7 @@ def index():
 
     print(album1, album2)
 
-    return render_template('index.html', album1=album1, album2=album2, aName=aName, bName=bName, aIndex=aIndex, bIndex=bIndex)
+    return render_template('index.html', album1=album1, album2=album2, aName=aName, bName=bName, aIndex=aIndex, bIndex=bIndex, playlistName = spplaylist['name'], playlistDescription = spplaylist['description'], playlistLength = spplaylist['tracks']['total'])
 
 @app.route('/album_click/<aIndex>/<bIndex>/<winner>')
 def album_click(aIndex, bIndex, winner):
@@ -113,11 +112,13 @@ def get_album_covers(track_ids):
 def handle_playlist_link():
     playlist_link = request.args.get('playlistLink')
     playlist_id = playlist_link[34:-20]
-    tracklist, playlist = setupPlaylist()
+    global tracklist, playlist, spplaylist
+    tracklist, playlist, spplaylist = setupPlaylist(playlist_id)
     return redirect(url_for('index'))
 
 @app.route('/playlist')
 def playlist_route():
+    # Sort the playlist first
     playlist.sort()
     snapshot = playlist.get()
 
